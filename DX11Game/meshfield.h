@@ -15,3 +15,4 @@ HRESULT InitMeshField(int nNumBlockX, int nNumBlockZ, float fSizeBlockX, float f
 void UninitMeshField(void);
 void UpdateMeshField(void);
 void DrawMeshField(void);
+

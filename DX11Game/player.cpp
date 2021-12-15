@@ -16,6 +16,7 @@
 #include "effect.h"
 #include "collision.h"
 #include "explosion.h"
+#include <Windows.h>
 
 //*****************************************************************************
 // マクロ定義
@@ -28,7 +29,10 @@
 #define	RATE_ROTATE_PLAYER	(0.1f)		// 回転慣性係数
 
 #define	PLAYER_RADIUS		(10.0f)		// 境界球半径
-#define	GRAVITY				(0.06f)		//重力
+#define JUMPPOWER			(20.0f)		//ジャンプ
+#define	GRAVITY				(0.3f)		//重力
+
+
 
 //*****************************************************************************
 // グローバル変数
@@ -43,6 +47,7 @@ static XMFLOAT3		g_moveModel;	// 移動量
 static XMFLOAT4X4	g_mtxWorld;		// ワールドマトリックス
 
 static int			g_nShadow;		// 丸影番号
+
 
 //=============================================================================
 // 初期化処理
@@ -155,16 +160,19 @@ void UpdatePlayer(void)
 
 		g_rotDestModel.y = rotCamera.y;
 	}
-
-
-	if (GetKeyPress(VK_I)) 
+	//重力
+	g_moveModel.y -= GRAVITY;
+	//ジャンプ
+	if (GetKeyTrigger(VK_I)) 
 	{
-		g_moveModel.y += VALUE_MOVE_PLAYER;
+		g_moveModel.y += JUMPPOWER;
 	}
-	if (GetKeyPress(VK_K)) 
-	{
-		g_moveModel.y -= VALUE_MOVE_PLAYER;
-	}
+
+	//ジャンプなのでいらない
+	//if (GetKeyPress(VK_K)) 
+	//{
+	//	g_moveModel.y -= VALUE_MOVE_PLAYER;
+	//}
 
 	if (GetKeyPress(VK_J)) 
 	{
@@ -237,10 +245,11 @@ void UpdatePlayer(void)
 	{
 		g_posModel.y = 10.0f;
 	}
-	if (g_posModel.y > 150.0f) 
-	{
-		g_posModel.y = 150.0f;
-	}
+	//ジャンプの高制限を解除
+	//if (g_posModel.y > 150.0f) 
+	//{
+	//	g_posModel.y = 150.0f;
+	//}
 
 	if (GetKeyPress(VK_RETURN)) 
 	{

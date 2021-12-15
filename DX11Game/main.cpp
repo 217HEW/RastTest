@@ -1,7 +1,7 @@
 //=============================================================================
 //
 // メイン処理 [main.cpp]
-// Author : HIROHIKO HAMAYA
+// Author : SAWAMURA RYUTO
 //
 //=============================================================================
 #include "AssimpModel.h"
@@ -22,6 +22,8 @@
 #include "meshwall.h"
 #include "polyline.h"
 #include "enemy.h"
+#include "timer.h"
+#include "life.h"
 
 //-------- ライブラリのリンク
 #pragma comment(lib, "winmm")
@@ -416,6 +418,22 @@ HRESULT Init(HWND hWnd, BOOL bWindow)
 	if (FAILED(hr))
 		return hr;
 
+	// タイマー表示初期化
+	hr = InitTimer();
+	if (FAILED(hr))
+	{
+		MessageBox(GetMainWnd(), _T("タイマー表示初期化失敗"), NULL, MB_OK | MB_ICONSTOP);
+		return hr;
+	}
+
+	// ライフ表示初期化
+	hr = InitLife();
+	if (FAILED(hr))
+	{
+		MessageBox(GetMainWnd(), _T("ライフ表示初期化失敗"), NULL, MB_OK | MB_ICONSTOP);
+		return hr;
+	}
+
 	// 自機初期化
 	hr = InitPlayer();
 	if (FAILED(hr))
@@ -625,6 +643,9 @@ void Update(void)
 	// ポリゴン表示更新
 	UpdatePolygon();
 
+	// タイマー更新
+	UpdateTimer();
+
 	// 自機更新
 	UpdatePlayer();
 
@@ -702,11 +723,17 @@ void Draw(void)
 	// 丸影描画
 	DrawShadow();
 
+	// タイマー表示
+	DrawTimer();
+
 	// ビルボード弾描画
 	DrawBullet();
 
 	// 煙描画
 	DrawSmoke();
+
+	// ライフ表示
+	DrawLife();
 
 	// 軌跡描画
 	DrawKiseki();
