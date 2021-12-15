@@ -16,7 +16,9 @@
 #include "effect.h"
 #include "collision.h"
 #include "explosion.h"
+#include "timer.h"
 #include <Windows.h>
+#include <stdio.h>
 
 //*****************************************************************************
 // マクロ定義
@@ -96,6 +98,11 @@ void UpdatePlayer(void)
 {
 	// カメラの向き取得
 	XMFLOAT3 rotCamera = CCamera::Get()->GetAngle();
+
+	if (GetTimer() <= 0)
+	{
+		//printf("n秒立ちました！\n");
+	}
 
 	if (GetKeyPress(VK_LEFT)) 
 	{
@@ -309,21 +316,21 @@ void UpdatePlayer(void)
 			BULLETTYPE_PLAYER);
 	}
 
-	PrintDebugProc("[ﾋｺｳｷ ｲﾁ : (%f : %f : %f)]\n", g_posModel.x, g_posModel.y, g_posModel.z);
-	PrintDebugProc("[ﾋｺｳｷ ﾑｷ : (%f) < ﾓｸﾃｷ ｲﾁ:(%f) >]\n", g_rotModel.y, g_rotDestModel.y);
-	PrintDebugProc("\n");
-
-	PrintDebugProc("*** ﾋｺｳｷ ｿｳｻ ***\n");
-	PrintDebugProc("ﾏｴ   ｲﾄﾞｳ : \x1e\n");//↑
-	PrintDebugProc("ｳｼﾛ  ｲﾄﾞｳ : \x1f\n");//↓
-	PrintDebugProc("ﾋﾀﾞﾘ ｲﾄﾞｳ : \x1d\n");//←
-	PrintDebugProc("ﾐｷﾞ  ｲﾄﾞｳ : \x1c\n");//→
-	PrintDebugProc("ｼﾞｮｳｼｮｳ   : I\n");
-	PrintDebugProc("ｶｺｳ       : K\n");
-	PrintDebugProc("ﾋﾀﾞﾘ ｾﾝｶｲ : J\n");
-	PrintDebugProc("ﾐｷﾞ  ｾﾝｶｲ : L\n");
-	PrintDebugProc("ﾀﾏ   ﾊｯｼｬ : Space\n");
-	PrintDebugProc("\n");
+	//PrintDebugProc("[ﾋｺｳｷ ｲﾁ : (%f : %f : %f)]\n", g_posModel.x, g_posModel.y, g_posModel.z);
+	//PrintDebugProc("[ﾋｺｳｷ ﾑｷ : (%f) < ﾓｸﾃｷ ｲﾁ:(%f) >]\n", g_rotModel.y, g_rotDestModel.y);
+	//PrintDebugProc("\n");
+	//
+	//PrintDebugProc("*** ﾋｺｳｷ ｿｳｻ ***\n");
+	//PrintDebugProc("ﾏｴ   ｲﾄﾞｳ : \x1e\n");//↑
+	//PrintDebugProc("ｳｼﾛ  ｲﾄﾞｳ : \x1f\n");//↓
+	//PrintDebugProc("ﾋﾀﾞﾘ ｲﾄﾞｳ : \x1d\n");//←
+	//PrintDebugProc("ﾐｷﾞ  ｲﾄﾞｳ : \x1c\n");//→
+	//PrintDebugProc("ｼﾞｮｳｼｮｳ   : I\n");
+	//PrintDebugProc("ｶｺｳ       : K\n");
+	//PrintDebugProc("ﾋﾀﾞﾘ ｾﾝｶｲ : J\n");
+	//PrintDebugProc("ﾐｷﾞ  ｾﾝｶｲ : L\n");
+	//PrintDebugProc("ﾀﾏ   ﾊｯｼｬ : Space\n");
+	//PrintDebugProc("\n");
 }
 
 //=============================================================================

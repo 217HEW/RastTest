@@ -8,5 +8,5 @@ void UninitTimer(); // 終了処理
 void UpdateTimer(); // 更新
 void DrawTimer(); // 描画
 
-void AddTimer(int nSec = 30);// 切替
+void AddTimer(int nSec = 30);// 切替_使ってない
 int GetTimer();

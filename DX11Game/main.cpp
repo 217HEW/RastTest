@@ -643,9 +643,6 @@ void Update(void)
 	// ポリゴン表示更新
 	UpdatePolygon();
 
-	// タイマー更新
-	UpdateTimer();
-
 	// 自機更新
 	UpdatePlayer();
 
@@ -657,6 +654,9 @@ void Update(void)
 
 	// フィールド更新
 	UpdateMeshField();
+
+	// タイマー更新
+	UpdateTimer();
 
 	// 丸影更新
 	UpdateShadow();
@@ -723,17 +723,13 @@ void Draw(void)
 	// 丸影描画
 	DrawShadow();
 
-	// タイマー表示
-	DrawTimer();
-
 	// ビルボード弾描画
 	DrawBullet();
 
 	// 煙描画
 	DrawSmoke();
 
-	// ライフ表示
-	DrawLife();
+
 
 	// 軌跡描画
 	DrawKiseki();
@@ -760,6 +756,10 @@ void Draw(void)
 	DrawDebugProc();
 	SetBlendState(BS_NONE);
 
+	// タイマー表示
+	DrawTimer();
+	// ライフ表示
+	DrawLife();
 	// バックバッファとフロントバッファの入れ替え
 	g_pSwapChain->Present(g_uSyncInterval, 0);
 }
@@ -832,3 +832,4 @@ void SetCullMode(int nCullMode)
 		g_pDeviceContext->RSSetState(g_pRs[nCullMode]);
 	}
 }
+
