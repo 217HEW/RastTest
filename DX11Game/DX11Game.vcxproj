@@ -169,11 +169,13 @@
     <ClCompile Include="explosion.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="kiseki.cpp" />
+    <ClCompile Include="life.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="meshfield.cpp" />
     <ClCompile Include="meshwall.cpp" />
+    <ClCompile Include="number.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="polygon.cpp" />
     <ClCompile Include="polyline.cpp" />
@@ -181,6 +183,7 @@
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="smoke.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssimpModel.h" />
@@ -194,11 +197,13 @@
     <ClInclude Include="explosion.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="kiseki.h" />
+    <ClInclude Include="life.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="meshfield.h" />
     <ClInclude Include="meshwall.h" />
+    <ClInclude Include="number.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="polygon.h" />
     <ClInclude Include="polyline.h" />
@@ -207,6 +212,7 @@
     <ClInclude Include="shadow.h" />
     <ClInclude Include="smoke.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="timer.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="AssimpPixel.hlsl">

@@ -1,7 +1,7 @@
 //=============================================================================
 //
 // メイン処理 [main.cpp]
-// Author : HIROHIKO HAMAYA
+// Author : SAWAMURA RYUTO
 //
 //=============================================================================
 #include "AssimpModel.h"
@@ -22,6 +22,8 @@
 #include "meshwall.h"
 #include "polyline.h"
 #include "enemy.h"
+#include "timer.h"
+#include "life.h"
 
 //-------- ライブラリのリンク
 #pragma comment(lib, "winmm")
@@ -416,6 +418,22 @@ HRESULT Init(HWND hWnd, BOOL bWindow)
 	if (FAILED(hr))
 		return hr;
 
+	// タイマー表示初期化
+	hr = InitTimer();
+	if (FAILED(hr))
+	{
+		MessageBox(GetMainWnd(), _T("タイマー表示初期化失敗"), NULL, MB_OK | MB_ICONSTOP);
+		return hr;
+	}
+
+	// ライフ表示初期化
+	hr = InitLife();
+	if (FAILED(hr))
+	{
+		MessageBox(GetMainWnd(), _T("ライフ表示初期化失敗"), NULL, MB_OK | MB_ICONSTOP);
+		return hr;
+	}
+
 	// 自機初期化
 	hr = InitPlayer();
 	if (FAILED(hr))
@@ -637,6 +655,9 @@ void Update(void)
 	// フィールド更新
 	UpdateMeshField();
 
+	// タイマー更新
+	UpdateTimer();
+
 	// 丸影更新
 	UpdateShadow();
 
@@ -708,6 +729,8 @@ void Draw(void)
 	// 煙描画
 	DrawSmoke();
 
+
+
 	// 軌跡描画
 	DrawKiseki();
 
@@ -733,6 +756,10 @@ void Draw(void)
 	DrawDebugProc();
 	SetBlendState(BS_NONE);
 
+	// タイマー表示
+	DrawTimer();
+	// ライフ表示
+	DrawLife();
 	// バックバッファとフロントバッファの入れ替え
 	g_pSwapChain->Present(g_uSyncInterval, 0);
 }
@@ -805,3 +832,4 @@ void SetCullMode(int nCullMode)
 		g_pDeviceContext->RSSetState(g_pRs[nCullMode]);
 	}
 }
+

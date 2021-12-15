@@ -16,6 +16,9 @@
 #include "effect.h"
 #include "collision.h"
 #include "explosion.h"
+#include "timer.h"
+#include <Windows.h>
+#include <stdio.h>
 
 //*****************************************************************************
 // マクロ定義
@@ -28,7 +31,10 @@
 #define	RATE_ROTATE_PLAYER	(0.1f)		// 回転慣性係数
 
 #define	PLAYER_RADIUS		(10.0f)		// 境界球半径
-#define	GRAVITY				(0.06f)		//重力
+#define JUMPPOWER			(20.0f)		//ジャンプ
+#define	GRAVITY				(0.3f)		//重力
+
+
 
 //*****************************************************************************
 // グローバル変数
@@ -43,6 +49,7 @@ static XMFLOAT3		g_moveModel;	// 移動量
 static XMFLOAT4X4	g_mtxWorld;		// ワールドマトリックス
 
 static int			g_nShadow;		// 丸影番号
+
 
 //=============================================================================
 // 初期化処理
@@ -91,6 +98,11 @@ void UpdatePlayer(void)
 {
 	// カメラの向き取得
 	XMFLOAT3 rotCamera = CCamera::Get()->GetAngle();
+
+	if (GetTimer() <= 0)
+	{
+		//printf("n秒立ちました！\n");
+	}
 
 	if (GetKeyPress(VK_LEFT)) 
 	{
@@ -155,16 +167,19 @@ void UpdatePlayer(void)
 
 		g_rotDestModel.y = rotCamera.y;
 	}
-
-
-	if (GetKeyPress(VK_I)) 
+	//重力
+	g_moveModel.y -= GRAVITY;
+	//ジャンプ
+	if (GetKeyTrigger(VK_I)) 
 	{
-		g_moveModel.y += VALUE_MOVE_PLAYER;
+		g_moveModel.y += JUMPPOWER;
 	}
-	if (GetKeyPress(VK_K)) 
-	{
-		g_moveModel.y -= VALUE_MOVE_PLAYER;
-	}
+
+	//ジャンプなのでいらない
+	//if (GetKeyPress(VK_K)) 
+	//{
+	//	g_moveModel.y -= VALUE_MOVE_PLAYER;
+	//}
 
 	if (GetKeyPress(VK_J)) 
 	{
@@ -237,10 +252,11 @@ void UpdatePlayer(void)
 	{
 		g_posModel.y = 10.0f;
 	}
-	if (g_posModel.y > 150.0f) 
-	{
-		g_posModel.y = 150.0f;
-	}
+	//ジャンプの高制限を解除
+	//if (g_posModel.y > 150.0f) 
+	//{
+	//	g_posModel.y = 150.0f;
+	//}
 
 	if (GetKeyPress(VK_RETURN)) 
 	{
@@ -300,21 +316,21 @@ void UpdatePlayer(void)
 			BULLETTYPE_PLAYER);
 	}
 
-	PrintDebugProc("[ﾋｺｳｷ ｲﾁ : (%f : %f : %f)]\n", g_posModel.x, g_posModel.y, g_posModel.z);
-	PrintDebugProc("[ﾋｺｳｷ ﾑｷ : (%f) < ﾓｸﾃｷ ｲﾁ:(%f) >]\n", g_rotModel.y, g_rotDestModel.y);
-	PrintDebugProc("\n");
-
-	PrintDebugProc("*** ﾋｺｳｷ ｿｳｻ ***\n");
-	PrintDebugProc("ﾏｴ   ｲﾄﾞｳ : \x1e\n");//↑
-	PrintDebugProc("ｳｼﾛ  ｲﾄﾞｳ : \x1f\n");//↓
-	PrintDebugProc("ﾋﾀﾞﾘ ｲﾄﾞｳ : \x1d\n");//←
-	PrintDebugProc("ﾐｷﾞ  ｲﾄﾞｳ : \x1c\n");//→
-	PrintDebugProc("ｼﾞｮｳｼｮｳ   : I\n");
-	PrintDebugProc("ｶｺｳ       : K\n");
-	PrintDebugProc("ﾋﾀﾞﾘ ｾﾝｶｲ : J\n");
-	PrintDebugProc("ﾐｷﾞ  ｾﾝｶｲ : L\n");
-	PrintDebugProc("ﾀﾏ   ﾊｯｼｬ : Space\n");
-	PrintDebugProc("\n");
+	//PrintDebugProc("[ﾋｺｳｷ ｲﾁ : (%f : %f : %f)]\n", g_posModel.x, g_posModel.y, g_posModel.z);
+	//PrintDebugProc("[ﾋｺｳｷ ﾑｷ : (%f) < ﾓｸﾃｷ ｲﾁ:(%f) >]\n", g_rotModel.y, g_rotDestModel.y);
+	//PrintDebugProc("\n");
+	//
+	//PrintDebugProc("*** ﾋｺｳｷ ｿｳｻ ***\n");
+	//PrintDebugProc("ﾏｴ   ｲﾄﾞｳ : \x1e\n");//↑
+	//PrintDebugProc("ｳｼﾛ  ｲﾄﾞｳ : \x1f\n");//↓
+	//PrintDebugProc("ﾋﾀﾞﾘ ｲﾄﾞｳ : \x1d\n");//←
+	//PrintDebugProc("ﾐｷﾞ  ｲﾄﾞｳ : \x1c\n");//→
+	//PrintDebugProc("ｼﾞｮｳｼｮｳ   : I\n");
+	//PrintDebugProc("ｶｺｳ       : K\n");
+	//PrintDebugProc("ﾋﾀﾞﾘ ｾﾝｶｲ : J\n");
+	//PrintDebugProc("ﾐｷﾞ  ｾﾝｶｲ : L\n");
+	//PrintDebugProc("ﾀﾏ   ﾊｯｼｬ : Space\n");
+	//PrintDebugProc("\n");
 }
 
 //=============================================================================

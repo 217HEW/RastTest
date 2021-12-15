@@ -38,6 +38,7 @@ static ID3D11ShaderResourceView*	g_pTexture;				// テクスチャ
 static MESH							g_mesh;					// 構造体
 static MATERIAL						g_material;				// マテリアル
 
+
 //=============================================================================
 // 初期化処理
 //=============================================================================
@@ -50,6 +51,7 @@ HRESULT InitMeshField(int nNumBlockX, int nNumBlockZ,
 	// 位置・回転の初期設定
 	g_mesh.pos = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	g_mesh.rot = XMFLOAT3(0.0f, 0.0f, 0.0f);
+
 
 	// マテリアルの初期設定
 	g_material.Diffuse = M_DIFFUSE;
@@ -99,6 +101,7 @@ void DrawMeshField(void)
 
 	// メッシュの描画
 	DrawMesh(pDC, &g_mesh);
+
 }
 
 //=============================================================================
